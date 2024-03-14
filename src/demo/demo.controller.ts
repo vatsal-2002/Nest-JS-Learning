@@ -1,4 +1,6 @@
-import { Body, Controller,Delete,Get, HttpCode, HttpStatus, Param, Post, Put, Req, Res } from '@nestjs/common';
+import { Body, Controller,Delete,Get, HttpCode, HttpStatus, Param, Post, Put, Query, Req, Res } from '@nestjs/common';
+import { query } from 'express';
+import { get } from 'http';
 
 @Controller('demo')
 export class DemoController {
@@ -39,8 +41,15 @@ export class DemoController {
   }
 
   @Get()
-findAlld(@Res() response) { 
+findAllReq(@Res() response) { 
   // Express.js example using status() and send() methods 
   response.status(200).send('This action returns all coffees');
+}
+
+// pagination 
+@Get("/pagination")
+findAllPagination(@Query() paginationQuery){
+  const { limit, offset } = paginationQuery;
+  return `This section returns all pagination Detail, Limit: ${limit} , offset: ${offset} `
 }
 }
